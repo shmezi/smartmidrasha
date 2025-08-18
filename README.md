@@ -1,3 +1,13 @@
+<h1>Smart Midrasha</h1>
+
+This project is a fullstack website designed for the Har Gilo Military Midrasha.
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
