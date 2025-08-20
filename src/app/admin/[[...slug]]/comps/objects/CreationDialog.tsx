@@ -1,13 +1,11 @@
 'use client'
 import React from "react";
-import {Button, Dialog, DialogActions, DialogTitle, Fab, FormControl, MenuItem, Select, TextField} from "@mui/material";
-import RegexField from "@/app/admin/[[...slug]]/comps/RegexField";
-import {Job} from "@/struct/User";
+import {Button, Dialog, DialogActions, Fab, FormControl} from "@mui/material";
 import {Add} from "@mui/icons-material";
 import Form from "next/form";
-import {createPost} from "@/app/api/user/create/route";
+import {createUserAction} from "@/app/actions/userActions";
 
-const CreationDialog = () => {
+const CreationDialog = (props: { pane: React.ReactNode}) => {
 
     const [creationDialog, setCreationDialog] = React.useState(false);
 
@@ -26,32 +24,19 @@ const CreationDialog = () => {
 
         <Dialog fullWidth={true} open={creationDialog} onClose={() => {
             setCreationDialog(false)
-        }}> <Form action={createPost}>
-            <FormControl fullWidth>
+        }}>
 
-                <DialogTitle>יצירת משתמש</DialogTitle>
+                <FormControl fullWidth>
+                    {props.pane}
+                    <DialogActions sx={{display: "flex", justifyContent: "center"}}>
+                        <Button form={"creation-dialog"} type={"submit"} variant={"outlined"} onClick={() => {
+                            setCreationDialog(false)
+                        }}>יצירה
+                        </Button>
 
+                    </DialogActions>
+                </FormControl>
 
-                <RegexField formField={"id"} limit={7} regex={"^[0-9]{7}$"} required={true}></RegexField>
-                <TextField name={"name"} required={true} sx={{margin: "1rem"}} label={"שם"}/>
-
-                <Select name={"job"} defaultValue={Job.default} sx={{margin: "1rem"}} variant={"outlined"}>
-                    <MenuItem value={Job.commander}>מפקד</MenuItem>
-                    <MenuItem value={Job.room_commander}>מפקד חדר</MenuItem>
-                    <MenuItem value={Job.default}>חייל</MenuItem>
-                </Select>
-
-                <DialogActions sx={{display: "flex", justifyContent: "center"}}>
-                    <Button type={"submit"} variant={"outlined"} onClick={() => {
-                        setCreationDialog(false)
-
-
-                    }}>צור משתמש
-                    </Button>
-
-                </DialogActions>
-            </FormControl>
-        </Form>
         </Dialog>
 
 

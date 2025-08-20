@@ -1,0 +1,1 @@
+export const simplifyJson = <T>(item: T) => JSON.parse(JSON.stringify(item))

@@ -2,99 +2,51 @@
 import {Box} from "@mui/material";
 import React from "react";
 import NavigationColumn from "@/app/admin/[[...slug]]/comps/navigation/NavigationColumn";
+import {UserPanel} from "@/app/admin/panel/implementations/UserPanel";
+import {BasePanel} from "@/app/admin/panel/BasePanel";
+import {ObjectUpdatePanel} from "@/app/admin/[[...slug]]/comps/objects/ObjectUpdatePanel";
 import ObjectSelector from "@/app/admin/[[...slug]]/comps/objects/ObjectSelector";
-import {CalendarMonth, Home} from "@mui/icons-material";
-import {HOME_ICON, SOLIDER_ICON} from "@/app/admin/[[...slug]]/comps/const/icons";
+import {redirect} from "next/navigation";
+import {HomePanel} from "@/app/admin/panel/implementations/HomePanel";
 
 
-const AdminPage = () => {
+const AdminPage = async ({params, searchParams}: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+    params: Promise<{ slug: string }>
+}) => {
+    const awaitedParams = await params
+    if (!awaitedParams.slug || awaitedParams.slug.length < 1)
+        redirect("/admin/users")
 
+    const selectedPage = awaitedParams.slug[0]
+    const panels = [new UserPanel(), new HomePanel()]
+    const mappedPanels = new Map<string, BasePanel>()
+    panels.map((panel) => {
+        mappedPanels.set(panel.id, panel)
+    })
+
+    if (!mappedPanels.has(selectedPage))
+        redirect("/admin/users")
+
+
+    const selectedPanel = mappedPanels.get(selectedPage)
+    const dataSource = await selectedPanel?.dataSource()
 
     return <>
 
         <Box display={"flex"} flexDirection={"row"}>
-            <NavigationColumn options={[
-                {
-                    id: "homes",
-                    icon: HOME_ICON
-                },
-                {
-                    id: "users",
-                    icon: SOLIDER_ICON
+            <NavigationColumn options={panels.map((panel) => {
+                return {
+                    id: panel.id,
+                    icon: panel.icon,
+                    name: ""
                 }
-            ]}/>
-
-            <ObjectSelector selectables={[
-                {
-                    id: "לוח שנה",
-                    icon: <CalendarMonth/>
-                }, {
-                    id: "מגורים קומה א",
-                    icon: <Home/>
-                }, {
-                    id: "מגורים קומה ב",
-                    icon: <Home/>
-                }, {
-                    id: "חדר אוכל",
-                    icon: <Home/>
-                }, {
-                    id: "מחסן ציוד",
-                    icon: <Home/>
-                }, {
-                    id: "חדר מפקדים",
-                    icon: <Home/>
-                }, {
-                    id: "מרפאה",
-                    icon: <Home/>
-                }, {
-                    id: "חדר כושר",
-                    icon: <Home/>
-                }, {
-                    id: "חדר מחשבים",
-                    icon: <Home/>
-                }, {
-                    id: "מחסן נשק",
-                    icon: <Home/>
-                }, {
-                    id: "כיתת הדרכה",
-                    icon: <Home/>
-                }, {
-                    id: "שירותים",
-                    icon: <Home/>
-                }, {
-                    id: "מקלחות",
-                    icon: <Home/>
-                }, {
-                    id: "חדר ישיבות",
-                    icon: <Home/>
-                }, {
-                    id: "משרד משא״ן",
-                    icon: <Home/>
-                }, {
-                    id: "משרד לוגיסטיקה",
-                    icon: <Home/>
-                }, {
-                    id: "שטח מסדר",
-                    icon: <Home/>
-                }, {
-                    id: "חדר טלוויזיה",
-                    icon: <Home/>
-                }, {
-                    id: "קפיטריה",
-                    icon: <Home/>
-                }, {
-                    id: "מחסן תחמושת",
-                    icon: <Home/>
-                }, {
-                    id: "כיתת לימוד",
-                    icon: <Home/>
-                }, {
-                    id: "מטבח",
-                    icon: <Home/>
-                }
-            ]}/>
+            })}/>
 
 
+            <ObjectSelector pane={selectedPanel} selectables={dataSource}/>
+            <ObjectUpdatePanel searchParams={await searchParams} panel={selectedPanel} selectables={dataSource}/>
+            {/*selectables={simplifyJson(dataSource)}*/}
         </Box>
     </>
 

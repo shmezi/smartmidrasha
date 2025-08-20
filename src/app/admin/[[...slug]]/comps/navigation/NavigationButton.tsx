@@ -11,6 +11,7 @@ const NavigationButton = (props: {
     const router = useRouter()
 
     return <ListItemButton
+
         sx={{width: "3rem", height: "3rem", padding: 0, display: "flex", justifyContent: "center"}}
         alignItems={"center"}
         selected={path === `/${props.prefixURL}/${props.name}`}

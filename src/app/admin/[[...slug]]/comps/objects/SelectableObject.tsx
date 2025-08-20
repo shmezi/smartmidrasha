@@ -31,7 +31,7 @@ const SelectableObject = (props: {
         <ListItemIcon sx={{padding: 0, display: "flex", justifyContent: "center"}}>
             {props.selectable.icon}
         </ListItemIcon>
-        <ListItemText style={{display: 'flex', justifyContent: 'flex-start'}}>{props.selectable.id}</ListItemText>
+        <ListItemText style={{display: 'flex', justifyContent: 'flex-start'}}>{props.selectable.name}</ListItemText>
     </ListItemButton>
 }
 
