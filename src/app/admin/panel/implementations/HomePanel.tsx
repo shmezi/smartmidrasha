@@ -1,44 +1,42 @@
 import {BasePanel} from "@/app/admin/panel/BasePanel";
-import {fromUser, Selectable} from "@/struct/Selectable";
-import {HOME_ICON} from "@/app/admin/[[...slug]]/comps/const/icons";
-import {IUser, Job, User} from "@/struct/User";
+import {fromHome, Selectable} from "@/struct/Selectable";
+import {HOME_ICON} from "@/const/icons";
+import {Job} from "@/struct/impl/User";
 import {MenuItem, Select, TextField} from "@mui/material";
 import RegexField from "@/app/admin/[[...slug]]/comps/RegexField";
 import React from "react";
-import {createUserAction} from "@/app/actions/userActions";
+import {Gender, Home, IHome} from "@/struct/impl/Home";
+import {createHomeAction} from "@/app/actions/homeActions";
 
 export class HomePanel extends BasePanel {
     icon = HOME_ICON
     id = "homes"
-    action = createUserAction
-    dialogTitle = "יצירת משתמש"
+    action = createHomeAction
+    dialogTitle = "יצירת בית"
     creationPane = <>
-        <RegexField formField={"id"} limit={7} regex={"^[0-9]{7}$"} required={true}></RegexField>
+
+        <RegexField formField={"id"} name={"בית: (איזור-מספר בית-מספר דירה"} limit={11}
+                    regex={"^[a-z]{3}-[0-9]{3}-[0-9]{3}$"} required={true}></RegexField>
         <TextField name={"name"} required={true} sx={{margin: "1rem"}} label={"שם"}/>
 
-        <Select name={"job"} defaultValue={Job.default} sx={{margin: "1rem"}} variant={"outlined"}>
-            <MenuItem value={Job.commander}>מפקד</MenuItem>
-            <MenuItem value={Job.room_commander}>מפקד חדר</MenuItem>
-            <MenuItem value={Job.default}>חייל</MenuItem>
-            <MenuItem value={Job.admin}>מנהלן</MenuItem>
+        <Select name={"gender"} defaultValue={Gender.FEMALE} sx={{margin: "1rem"}} variant={"outlined"}>
+            <MenuItem value={Gender.FEMALE}>נשים</MenuItem>
+            <MenuItem value={Gender.MALE}>גברים </MenuItem>
         </Select>
 
 
     </>
 
     editPane = (selected: Selectable) => {
-        const user = selected as IUser
+        const user = selected as IHome
         return <>
             <p>שם: {user.name}</p>
-            <p>מספר אישי: {user.id}</p>
-            <p>תפקידים: {user.jobs.join(", ")}</p>
-
         </>
     }
 
     dataSource = async (): Promise<Selectable[]> => {
-        return (await User.find()).map((user) => {
-            return fromUser(user)
+        return (await Home.find()).map((user) => {
+            return fromHome(user)
         })
     }
 

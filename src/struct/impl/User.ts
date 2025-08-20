@@ -1,6 +1,7 @@
 import {Selectable} from "@/struct/Selectable";
 import * as mongoose from "mongoose";
-import {ADMIN_ICON, COMMANDER_ICON, HOME_COMMANDER_ICON, SOLIDER_ICON} from "@/app/admin/[[...slug]]/comps/const/icons";
+import {ADMIN_ICON, COMMANDER_ICON, HOME_COMMANDER_ICON, SOLIDER_ICON} from "@/const/icons";
+import {Gender} from "@/struct/impl/Home";
 
 
 export enum Job {
@@ -9,7 +10,8 @@ export enum Job {
     room_commander = "ROOM_COMMANDER",
     admin = "ADMIN",
 }
-export const jobIcon = (job: Job) =>{
+
+export const jobIcon = (job: Job) => {
     switch (job) {
         case Job.default:
             return SOLIDER_ICON;
@@ -35,7 +37,10 @@ export const getHighestJob = (jobs: Job[]) => {
 export interface IUser extends Selectable {
     _id: string
     name: string
-    jobs: Job[]
+    jobs: Job[],
+    homeId: string
+    gender: Gender,
+    phone: string
 }
 
 
@@ -46,7 +51,14 @@ const userSchema = new mongoose.Schema<IUser>({
         type: [String], // This specifies an array of strings
         enum: Object.values(Job), // This applies the enum validator to each element in the array
         required: true
-    }
+    },
+    homeId: String,
+    gender: {
+        type: String, // This specifies an array of strings
+        enum: Object.values(Gender), // This applies the enum validator to each element in the array
+        required: true
+    },
+    phone: String
 })
 
 export const User = mongoose.models?.Users || mongoose.model('Users', userSchema);

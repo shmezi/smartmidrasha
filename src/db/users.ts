@@ -1,3 +1,3 @@
-import {IUser, User} from "@/struct/User";
+import {IUser, User} from "@/struct/impl/User";
 import connectDBIfNotConnected from "@/database";
 

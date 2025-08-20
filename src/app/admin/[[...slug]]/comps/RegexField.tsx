@@ -2,7 +2,7 @@
 import {TextField} from "@mui/material";
 import React, {ChangeEvent, useState} from "react";
 
-const RegexField = (props: { regex: string, formField?: string, limit?: number | null, required: boolean }) => {
+const RegexField = (props: { regex: string,name:string, formField?: string, limit?: number | null, required: boolean }) => {
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
     const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ const RegexField = (props: { regex: string, formField?: string, limit?: number |
                       name={props.formField}
                       onChange={handleNameChange}
                       error={nameError} inputMode={"numeric"} sx={{margin: "1rem"}}
-                      label="מספר אישי" variant="outlined"
+                      label={props.name} variant="outlined"
     />
 
 

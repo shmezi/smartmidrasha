@@ -12,7 +12,7 @@ const ObjectSelector = (props: { pane: BasePanel | undefined, selectables: Selec
         return <Box sx={{height: "100vh", maxWidth: "20rem", position: "relative"}}/>
 
 
-    return <Box sx={{height: "100vh", maxWidth: "20rem", position: "relative"}}>
+    return <Box sx={{height: "100vh", width: "20rem", position: "relative"}}>
         <CreationDialog pane={props.pane.getCreationPane()}/>
         <List component="nav" sx={{overflowY: "scroll", maxHeight: "100%"}}>
             {
