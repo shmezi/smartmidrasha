@@ -40,7 +40,8 @@ export interface IUser extends Selectable {
     jobs: Job[],
     homeId: string
     gender: Gender,
-    phone: string
+    phone: string,
+    commanderId: string
 }
 
 
@@ -58,7 +59,8 @@ const userSchema = new mongoose.Schema<IUser>({
         enum: Object.values(Gender), // This applies the enum validator to each element in the array
         required: true
     },
-    phone: String
+    phone: String,
+    commanderId: String
 })
 
 export const User = mongoose.models?.Users || mongoose.model('Users', userSchema);

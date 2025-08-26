@@ -2,8 +2,6 @@
 import React from "react";
 import {Button, Dialog, DialogActions, Fab, FormControl} from "@mui/material";
 import {Add} from "@mui/icons-material";
-import Form from "next/form";
-import {createUserAction} from "@/app/actions/userActions";
 
 const CreationDialog = (props: { pane: React.ReactNode }) => {
 
@@ -11,7 +9,7 @@ const CreationDialog = (props: { pane: React.ReactNode }) => {
 
     return <>
 
-        <Fab color={"info"} sx={{position: "absolute", bottom: "0px", left: "0px", margin: "1rem"}}
+        <Fab color={"info"} sx={{position: "fixed", bottom: "0px", left: "0px", margin: "1rem"}}
              onClick={() => {
 
                  setCreationDialog(true)

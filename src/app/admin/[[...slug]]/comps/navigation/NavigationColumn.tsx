@@ -7,7 +7,7 @@ import {Selectable} from "@/struct/Selectable";
 const NavigationColumn = (props: { options: Selectable[]}) => {
 
 
-    return <List component="nav">
+    return <List component="nav" disablePadding>
         {props.options.map((item, index) => {
 
             return <NavigationButton key={index}

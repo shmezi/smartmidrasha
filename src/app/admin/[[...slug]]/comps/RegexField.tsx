@@ -1,5 +1,5 @@
 'use client'
-import {TextField} from "@mui/material";
+import {FormControl, TextField} from "@mui/material";
 import React, {ChangeEvent, useState} from "react";
 
 const RegexField = (props: { regex: string,name:string, formField?: string, limit?: number | null, required: boolean }) => {
@@ -16,14 +16,16 @@ const RegexField = (props: { regex: string,name:string, formField?: string, limi
         }
     };
 
-    return <TextField required={props.required}
-                      slotProps={{htmlInput: {maxLength: props.limit}}}
-                      value={name}
-                      name={props.formField}
-                      onChange={handleNameChange}
-                      error={nameError} inputMode={"numeric"} sx={{margin: "1rem"}}
-                      label={props.name} variant="outlined"
-    />
+    return <FormControl>
+        <TextField required={props.required}
+                   slotProps={{htmlInput: {maxLength: props.limit}}}
+                   value={name}
+                   name={props.formField}
+                   onChange={handleNameChange}
+                   error={nameError} inputMode={"numeric"} sx={{margin: "1rem"}}
+                   label={props.name} variant="outlined"
+        />
+    </FormControl>
 
 
 }

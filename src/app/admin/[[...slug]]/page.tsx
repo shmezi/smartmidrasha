@@ -32,23 +32,19 @@ const AdminPage = async ({params, searchParams}: {
     const selectedPanel = mappedPanels.get(selectedPage)
     const dataSource = await selectedPanel?.dataSource()
 
-    return <>
+    return <Box display={"flex"}  flexDirection={"row"}>
+        <NavigationColumn options={panels.map((panel) => {
+            return {
+                id: panel.id,
+                icon: panel.icon,
+                name: ""
+            }
+        })}/>
 
-        <Box display={"flex"} flexDirection={"row"}>
-            <NavigationColumn options={panels.map((panel) => {
-                return {
-                    id: panel.id,
-                    icon: panel.icon,
-                    name: ""
-                }
-            })}/>
+        <ObjectSelector pane={selectedPanel} selectables={dataSource}/>
+        {/*<ObjectUpdatePanel searchParams={await searchParams} panel={selectedPanel} selectables={dataSource}/>*/}
 
-
-            <ObjectSelector pane={selectedPanel} selectables={dataSource}/>
-            <ObjectUpdatePanel searchParams={await searchParams} panel={selectedPanel} selectables={dataSource}/>
-            {/*selectables={simplifyJson(dataSource)}*/}
-        </Box>
-    </>
+    </Box>
 
 
 }

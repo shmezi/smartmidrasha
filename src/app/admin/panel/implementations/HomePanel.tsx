@@ -2,7 +2,7 @@ import {BasePanel} from "@/app/admin/panel/BasePanel";
 import {fromHome, Selectable} from "@/struct/Selectable";
 import {HOME_ICON} from "@/const/icons";
 import {Job} from "@/struct/impl/User";
-import {MenuItem, Select, TextField} from "@mui/material";
+import {FormControl, MenuItem, Select, TextField} from "@mui/material";
 import RegexField from "@/app/admin/[[...slug]]/comps/RegexField";
 import React from "react";
 import {Gender, Home, IHome} from "@/struct/impl/Home";
@@ -14,15 +14,19 @@ export class HomePanel extends BasePanel {
     action = createHomeAction
     dialogTitle = "יצירת בית"
     creationPane = <>
-
         <RegexField formField={"id"} name={"בית: (איזור-מספר בית-מספר דירה"} limit={11}
                     regex={"^[a-z]{3}-[0-9]{3}-[0-9]{3}$"} required={true}></RegexField>
-        <TextField name={"name"} required={true} sx={{margin: "1rem"}} label={"שם"}/>
+       <FormControl>
+           <TextField name={"name"} required={true} sx={{margin: "1rem"}} label={"שם"}/>
+       </FormControl>
 
-        <Select name={"gender"} defaultValue={Gender.FEMALE} sx={{margin: "1rem"}} variant={"outlined"}>
-            <MenuItem value={Gender.FEMALE}>נשים</MenuItem>
-            <MenuItem value={Gender.MALE}>גברים </MenuItem>
-        </Select>
+        <FormControl>
+            <Select name={"gender"} defaultValue={Gender.FEMALE} sx={{margin: "1rem"}} variant={"outlined"}>
+                <MenuItem value={Gender.FEMALE}>נשים</MenuItem>
+                <MenuItem value={Gender.MALE}>גברים </MenuItem>
+            </Select>
+
+        </FormControl>
 
 
     </>

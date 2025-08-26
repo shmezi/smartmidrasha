@@ -2,12 +2,13 @@ import {BasePanel} from "@/app/admin/panel/BasePanel";
 import {fromUser, Selectable} from "@/struct/Selectable";
 import {SOLIDER_ICON} from "@/const/icons";
 import {IUser, Job, User} from "@/struct/impl/User";
-import {InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import RegexField from "@/app/admin/[[...slug]]/comps/RegexField";
 import React from "react";
 import {createUserAction} from "@/app/actions/userActions";
 import {Gender, Home} from "@/struct/impl/Home";
 import HomeSelector from "@/app/serverComps/HomeSelector";
+import CommanderSelector from "@/app/serverComps/CommanderSelector";
 
 export class UserPanel extends BasePanel {
     icon = SOLIDER_ICON
@@ -16,23 +17,30 @@ export class UserPanel extends BasePanel {
     dialogTitle = "יצירת משתמש"
     creationPane = <>
 
-        <TextField name={"name"} required={true} sx={{margin: "1rem"}} label={"שם"}/>
+        <FormControl>
+            <TextField name={"name"} required={true} sx={{margin: "1rem"}} label={"שם"}/>
+        </FormControl>
 
-        <Select label={"מין"} name={"gender"} defaultValue={Gender.FEMALE} sx={{margin: "1rem"}} variant={"outlined"}>
-            <MenuItem value={Gender.FEMALE}>נקבה</MenuItem>
-            <MenuItem value={Gender.MALE}>זכר</MenuItem>
-        </Select>
+       <FormControl>
+           <Select label={"מין"} name={"gender"} defaultValue={Gender.FEMALE} sx={{margin: "1rem"}} variant={"outlined"}>
+               <MenuItem value={Gender.FEMALE}>נקבה</MenuItem>
+               <MenuItem value={Gender.MALE}>זכר</MenuItem>
+           </Select>
+       </FormControl>
         <RegexField formField={"id"} name={"מספר אישי"} limit={7} regex={"^[0-9]{7}$"} required={true}></RegexField>
         <RegexField formField={"phone"} name={"מספר טלפון"} limit={9} regex={"^[0-9]{9}$"} required={true}></RegexField>
 
 
-        <Select name={"job"} defaultValue={Job.default} sx={{margin: "1rem"}} variant={"outlined"}>
-            <MenuItem value={Job.commander}>מפקד</MenuItem>
-            <MenuItem value={Job.room_commander}>מפקד חדר</MenuItem>
-            <MenuItem value={Job.default}>חייל</MenuItem>
-            <MenuItem value={Job.admin}>מנהלן</MenuItem>
-        </Select>
+        <FormControl>
+            <Select name={"job"} defaultValue={Job.default} sx={{margin: "1rem"}} variant={"outlined"}>
+                <MenuItem value={Job.commander}>מפקד</MenuItem>
+                <MenuItem value={Job.room_commander}>מפקד חדר</MenuItem>
+                <MenuItem value={Job.default}>חייל</MenuItem>
+                <MenuItem value={Job.admin}>מנהלן</MenuItem>
+            </Select>
+        </FormControl>
         <HomeSelector/>
+        <CommanderSelector/>
 
     </>
 

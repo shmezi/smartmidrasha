@@ -9,12 +9,11 @@ import {BasePanel} from "@/app/admin/panel/BasePanel";
 
 const ObjectSelector = (props: { pane: BasePanel | undefined, selectables: Selectable[] | undefined }) => {
     if (!props.selectables || !props.pane)
-        return <Box sx={{height: "100vh", maxWidth: "20rem", position: "relative"}}/>
+        return <Box className={"fill-max"} sx={{maxWidth: "20rem", position: "relative"}}/>
 
-
-    return <Box sx={{height: "100vh", width: "20rem", position: "relative"}}>
+    return <Box>
         <CreationDialog pane={props.pane.getCreationPane()}/>
-        <List component="nav" sx={{overflowY: "scroll", maxHeight: "100%"}}>
+        <List component="nav" disablePadding sx={{overflowY: "scroll"}}>
             {
                 props.selectables.map((item, index) => {
                     return <SelectableObject
