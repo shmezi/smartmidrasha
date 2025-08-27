@@ -1,3 +1,5 @@
+// noinspection t
+
 'use client'
 import {List, ListItem, ListItemButton} from "@mui/material";
 import {IUser} from "@/struct/impl/User";
@@ -14,11 +16,6 @@ const SoliderSelector = (props: { soldiers: IUser[] }) => {
         }
         setSelected([...selected, soliderId]);
     }
-    const selectionList = (id: string) => {
-        if (selected.includes(id))
-            return "present"
-        return "absent"
-    }
 
     return <>
         {selected.map((item) => (
@@ -27,11 +24,25 @@ const SoliderSelector = (props: { soldiers: IUser[] }) => {
         <List>
 
             {props.soldiers.map((solider) => (
-                <ListItem key={solider._id} onClick={() => {
+                <ListItem sx={{
+                    margin:"0.3rem",
+                    padding: selected.includes(solider._id) ? "1px" : "2px",
+                }}  key={solider._id} onClick={() => {
                     handleToggle(solider._id)
                 }}>
                     <ListItemButton
-                        selected={selected.includes(solider._id)}>{solider.name}{solider._id}</ListItemButton>
+                        sx={{
+
+                            boxSizing: "border-box",
+                            padding: "0.5rem 2rem",
+                            border: selected.includes(solider._id) ? "2px solid" : "1px solid",
+                            borderColor: selected.includes(solider._id) ? "green" : "black",
+                            borderRadius: "1.2rem",
+                            justifyContent: "center",
+                            alignContent: "center"
+                        }}
+                        selected={selected.includes(solider._id)}>{solider.name} | {solider._id}
+                    </ListItemButton>
                 </ListItem>
             ))
             }

@@ -42,7 +42,7 @@ const AdminPage = async ({params, searchParams}: {
         })}/>
 
         <ObjectSelector pane={selectedPanel} selectables={dataSource}/>
-        {/*<ObjectUpdatePanel searchParams={await searchParams} panel={selectedPanel} selectables={dataSource}/>*/}
+        <ObjectUpdatePanel searchParams={await searchParams} panel={selectedPanel} selectables={dataSource}/>
 
     </Box>
 
