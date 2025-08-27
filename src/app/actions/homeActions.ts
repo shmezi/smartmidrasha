@@ -1,22 +1,7 @@
 'use server'
-import {User} from "@/struct/impl/User";
-import connectDBIfNotConnected from "@/database";
-import {Gender, Home} from "@/struct/impl/Home";
+import {User} from "@/struct/schemas/data/User";
+import {Gender, Home} from "@/struct/schemas/data/Home";
 
-export const getHomeList = async () => {
-    await connectDBIfNotConnected()
-    return Home.find();
-}
-export const getRoomList = async () => {
-}
-
-export const getCommanderList = async () => {
-}
-export const getUserByID = async () => {
-
-}
-export const getRoomByID = async () => {
-}
 
 export const createHomeAction = async (formData: FormData) => {
     const id = formData.get('id') as string
@@ -32,9 +17,9 @@ export const createHomeAction = async (formData: FormData) => {
     })
 }
 
-export const deleteUserAction = async (id: string) => {
-    // const id = formData.get('id') as string
-    await User.findByIdAndDelete(id)
+export const deleteHomeAction = async (id: string) => {
+    // constants id = formData.get('id') as string
+    await Home.findByIdAndDelete(id)
 
 
 }
