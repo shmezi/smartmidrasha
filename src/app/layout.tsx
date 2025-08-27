@@ -5,10 +5,10 @@ import connectDBIfNotConnected from "@/database";
 import React from "react";
 import {Box, ThemeProvider, Typography} from "@mui/material";
 import SynagogueIcon from '@mui/icons-material/Synagogue';
-import NavBarButton from "@/app/nav/NavbarButton";
+import NavBarButton from "@/components/nav/NavbarButton";
 import {Stack, useTheme} from "@mui/system";
 import theme from "@/app/theme";
-import Header from "@/app/header/Header";
+import Header from "@/components/header/Header";
 
 await connectDBIfNotConnected()
 const geistSans = Geist({
