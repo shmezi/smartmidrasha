@@ -4,7 +4,7 @@ import React from "react";
 import {User} from "@/struct/schemas/data/User";
 
 const CommanderSelector = async () => {
-    const commanders = (await User.find({jobs: {$all: ["COMMANDER"]}}))
+    const commanders = (await User.find({jobs: {$all: ["commander"]}}))
     return <FormControl>
         <Select name={"commanderId"} sx={{margin: "1rem"}} variant={"outlined"}>
             {commanders.map((commander: IHome) => {

@@ -1,13 +1,13 @@
 'use server'
 import {AccountCircle} from "@mui/icons-material";
-import {Box, Button, Card, FormControl, InputAdornment, Link, TextField, Typography} from "@mui/material";
+import {Box, Button, Card, FormControl, InputAdornment, TextField, Typography} from "@mui/material";
 import Form from "next/form";
-import {sendAuthRequest} from "@/app/actions/authActions";
+import {verifyAuthRequest} from "@/app/actions/authActions";
 
-const SignIn = async () => {
+const Verify = async () => {
     return (<>
 
-            <Form action={sendAuthRequest}>
+            <Form action={verifyAuthRequest}>
 
                 <Box margin={"2rem"} justifyItems={"center"}>
 
@@ -45,8 +45,28 @@ const SignIn = async () => {
 
                                 </TextField>
                             </FormControl>
-                            <Button type={"submit"} variant={"outlined"}>שלח לי קוד</Button>
-                            <Link href={"/api/auth/signin"}>הבא</Link>
+                            <FormControl>
+
+                                <TextField
+                                    name={"code"}
+
+                                    sx={{
+                                        padding: "0",
+                                        width: "90%"
+                                    }} fullWidth={false} type={"number"} slotProps={{
+                                    input: {
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <AccountCircle/>
+                                            </InputAdornment>
+                                        ),
+                                    }
+                                }}>
+
+                                </TextField>
+                            </FormControl>
+                            <Button type={"submit"} variant={"outlined"}>כניסה</Button>
+
                         </Box>
 
                     </Card>
@@ -55,4 +75,4 @@ const SignIn = async () => {
             </Form></>
     )
 }
-export default SignIn
+export default Verify
