@@ -11,13 +11,14 @@ export const createUserAction = async (formData: FormData) => {
     const homeId = formData.get('homeId') as string
     const commanderId = formData.get('commanderId') as string
     const gender = formData.get('gender') as Gender
-
+    const phone = formData.get('phone') as string
     await User.insertOne({
         _id: id,
         icon: undefined,
         id: id,
         jobs: [job],
         name: name,
+        phone: phone,
         homeId: homeId,
         commanderId: commanderId,
         gender: gender

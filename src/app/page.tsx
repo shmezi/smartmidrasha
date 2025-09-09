@@ -1,6 +1,14 @@
 'use client'
-import {useRouter} from "next/navigation";
+import {headers} from "next/headers";
+import {auth} from "../../auth";
+import {authClient} from "@/lib/client";
 
-export default function Home() {
-    useRouter().push("/dashboard")
+const Home =  () => {
+    const session =  authClient.getSession()
+    console.log(session)
+    return <>
+    </>
+
 }
+
+export default Home

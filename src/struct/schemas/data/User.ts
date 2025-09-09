@@ -4,13 +4,14 @@ import {Gender} from "@/struct/schemas/data/Home";
 import {getHighestJob, Job} from "@/struct/Job";
 
 export interface IUser extends Selectable {
-    _id: string
+    _id: string,
+
     name: string
     jobs: string[],
     homeId: string
     gender: Gender,
     phone: string,
-    commanderId: string
+    commanderId: string,
 
 }
 export const fromUser = (user: IUser): IUser => {
