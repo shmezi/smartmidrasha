@@ -2,15 +2,14 @@
 
 import {Box, Grid, List, ListItem, ListItemText, Typography} from "@mui/material";
 import Widget from "@/app/(pages)/commander/homes/dash/widget/Widget";
-import {IUser, User} from "@/struct/schemas/data/User";
 import {ExpectedLog, IAttendanceLog} from "@/struct/schemas/attendance/ExpectedLog";
 import {PresentLog} from "@/struct/schemas/attendance/PresentLog";
 import CircleIcon from '@mui/icons-material/Circle';
 
 const CommanderReviewDash = async () => {
     const dateToday = new Date().toLocaleDateString()
-    const allSoldiers: IUser[] = await User.find({jobs: {$all: ["DEFAULT"]}})
-    const allCommanders: IUser[] = await User.find({jobs: {$all: ["COMMANDER"]}})
+    // const allSoldiers: IUser[] = await User.find({jobs: {$all: ["DEFAULT"]}})
+    // const allCommanders: IUser[] = await User.find({jobs: {$all: ["COMMANDER"]}})
 
     const attendanceLogArray: IAttendanceLog[] = await ExpectedLog.find({date: dateToday})
 
@@ -29,9 +28,9 @@ const CommanderReviewDash = async () => {
     }).flat(1)
 
 
-    const missingSoliders = allSoldiers.filter((user) => {
-        return (presentSoldiers.includes(user._id) && !attendingSoliders.includes(user._id)) || (attendingSoliders.length == 0)
-    })
+    // const missingSoliders = allSoldiers.filter((user) => {
+    //     return (presentSoldiers.includes(user._id) && !attendingSoliders.includes(user._id)) || (attendingSoliders.length == 0)
+    // })
 
 
     return <Grid spacing={"0.4rem"} padding={"1rem"} container display={"flex"} height={"100%"} alignItems={"center"}>
@@ -52,14 +51,14 @@ const CommanderReviewDash = async () => {
             <Typography sx={{textAlign: "right"}}>חיילים נאדרים:</Typography>
 
             <List>
-                {missingSoliders.map((userId) => {
+                {/*{missingSoliders.map((userId) => {*/}
 
-                    return <ListItem key={userId._id}>
-                        <ListItemText dir={"rtl"} sx={{textAlign: "right"}}>{allSoldiers.filter((user) => {
-                            return user._id == userId._id
-                        })[0].name}</ListItemText>
-                    </ListItem>
-                })}
+                {/*    return <ListItem key={userId._id}>*/}
+                {/*        <ListItemText dir={"rtl"} sx={{textAlign: "right"}}>{allSoldiers.filter((user) => {*/}
+                {/*            return user._id == userId._id*/}
+                {/*        })[0].name}</ListItemText>*/}
+                {/*    </ListItem>*/}
+                {/*})}*/}
 
             </List>
         </Widget>
@@ -67,20 +66,20 @@ const CommanderReviewDash = async () => {
             <Typography sx={{textAlign: "right"}}>מפקדים</Typography>
 
             <List>
-                {allCommanders.map((commander) => {
+                {/*{allCommanders.map((commander) => {*/}
 
-                    return <ListItem key={commander._id}>
-                        <ListItemText dir={"rtl"} sx={{textAlign: "right"}}>
-                            <CircleIcon
-                                sx={{
-                                    marginLeft: "0.4rem",
-                                    fontSize: "x-small",
-                                    color: commandersThatSubmittedLog.includes(commander._id) ? "green" : "red"
-                                }}/>
-                            {commander.name}
-                        </ListItemText>
-                    </ListItem>
-                })}
+                {/*    return <ListItem key={commander._id}>*/}
+                {/*        <ListItemText dir={"rtl"} sx={{textAlign: "right"}}>*/}
+                {/*            <CircleIcon*/}
+                {/*                sx={{*/}
+                {/*                    marginLeft: "0.4rem",*/}
+                {/*                    fontSize: "x-small",*/}
+                {/*                    color: commandersThatSubmittedLog.includes(commander._id) ? "green" : "red"*/}
+                {/*                }}/>*/}
+                {/*            {commander.name}*/}
+                {/*        </ListItemText>*/}
+                {/*    </ListItem>*/}
+                {/*})}*/}
 
             </List>
         </Widget>
@@ -88,28 +87,28 @@ const CommanderReviewDash = async () => {
             <Typography sx={{textAlign: "right"}}>חיילים</Typography>
 
             <List>
-                {allSoldiers.map((soldier) => {
-                    let color
+                {/*{allSoldiers.map((soldier) => {*/}
+                {/*    let color*/}
 
-                    if (attendingSoliders.includes(soldier._id))
-                        color = "green"
-                    if (missingSoliders.includes(soldier))
-                        color = "red"
-                    if (!presentSoldiers.includes(soldier._id))
-                        color = "gray"
+                {/*    if (attendingSoliders.includes(soldier._id))*/}
+                {/*        color = "green"*/}
+                {/*    if (missingSoliders.includes(soldier))*/}
+                {/*        color = "red"*/}
+                {/*    if (!presentSoldiers.includes(soldier._id))*/}
+                {/*        color = "gray"*/}
 
-                    return <ListItem key={soldier._id}>
-                        <ListItemText dir={"rtl"} sx={{textAlign: "right"}}>
-                            <CircleIcon
-                                sx={{
-                                    marginLeft: "0.4rem",
-                                    fontSize: "x-small",
-                                    color: color
-                                }}></CircleIcon>
-                            {soldier.name}
-                        </ListItemText>
-                    </ListItem>
-                })}
+                {/*    return <ListItem key={soldier._id}>*/}
+                {/*        <ListItemText dir={"rtl"} sx={{textAlign: "right"}}>*/}
+                {/*            <CircleIcon*/}
+                {/*                sx={{*/}
+                {/*                    marginLeft: "0.4rem",*/}
+                {/*                    fontSize: "x-small",*/}
+                {/*                    color: color*/}
+                {/*                }}></CircleIcon>*/}
+                {/*            {soldier.name}*/}
+                {/*        </ListItemText>*/}
+                {/*    </ListItem>*/}
+                {/*})}*/}
 
             </List>
         </Widget>
