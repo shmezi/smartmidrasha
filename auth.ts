@@ -1,69 +1,9 @@
-// import NextAuth from "next-auth"
-// import {MongoDBAdapter} from "@auth/mongodb-adapter";
-// import client from "@/lib/db";
-// import Credentials from "@auth/core/providers/credentials";
-// import {validateOTP} from "@/app/actions/authActions";
-// import {IUser, User} from "@/struct/schemas/data/User";
-// import {DefaultUser} from "@auth/core/types";
-//
-//
-// export const {handlers, auth, signIn, signOut} = NextAuth({
-//     adapter: MongoDBAdapter(client, {}),
-//     providers: [
-//         Credentials({
-//             // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-//             // e.g. domain, username, password, 2FA token, etc.
-//             credentials: {
-//                 phone: {type: "text"},
-//                 code: {type: "text"},
-//             },
-//             authorize: async (credentials) => {
-//
-//                 const phone = credentials.phone as string
-//                 const code = credentials.code as string
-//                 const validLogin = await validateOTP(phone, code)
-//                 const retreivedUser: IUser | null = await User.findOne({phone: phone});
-//                 if (!retreivedUser) return null
-//                 const user = {
-//                     id: retreivedUser._id,
-//                     name: retreivedUser.name,
-//                     email: retreivedUser.phone,
-//                     awesome: retreivedUser.phone
-//                 }
-//                 if (validLogin)
-//                     return user
-//                 return null
-//             },
-//
-//         }),
-//     ],
-//     session: {strategy: "jwt"},
-//
-//     callbacks: {
-//         authorized: async ({auth}) => {
-//             // Logged in users are authenticated, otherwise redirect to login page
-//             return !!auth
-//         },
-//         async jwt({token, user}) {
-//             if (user) { // User is available during sign-in
-//                 const actualUser: IUser | null = (await User.findOne({phone: user.email}))
-//                 if (!actualUser) return token
-//                 token.id = user.id
-//                 token.roles = actualUser.jobs
-//             }
-//             return token
-//         },
-//
-//
-//     },
-// })
-
-
 import {betterAuth} from "better-auth";
 import {mongodbAdapter} from "better-auth/adapters/mongodb";
-import {phoneNumber} from "better-auth/plugins"
+import {admin, phoneNumber} from "better-auth/plugins"
 import client from "@/lib/db";
-import { nextCookies } from "better-auth/next-js";
+import {nextCookies} from "better-auth/next-js";
+import {accessControl, adminRole, commanderRole, dutyOfficerRole} from "@/lib/permissions";
 
 
 const db = client.db();
@@ -72,7 +12,17 @@ export const auth = betterAuth({
     database: mongodbAdapter(db),
     secret: process.env.AUTH_SECRET ?? "kSKbHkB0DJMTZkXZzAmvHFxXFCQpnrTUqzsFr8nWzw8=",
     encryptOAuthTokens: true,
+    user: {
+        additionalFields: {
+            homeId: {
+                type: "string",
+            },
+            commanderId: {
+                type: "string",
+            }
 
+        }
+    },
     plugins: [
         phoneNumber({
             sendOTP: async ({phoneNumber, code}, request) => {
@@ -93,7 +43,27 @@ export const auth = betterAuth({
                 },
 
             }
+        }), admin({
+            ac: accessControl,
+            roles: {
+                adminRole,
+                dutyOfficerRole,
+                commanderRole
+            }
         }),
         nextCookies()
     ]
 });
+type Session = typeof auth.$Infer.Session
+
+// await auth.api.createUser({
+//     body: {
+//         name: "Shemzi",
+//         email: "shmezi@midrasha.il",
+//         password: "admin",
+//         role: ["dutyOfficerRole","adminRole", "commanderRole"],
+//         data: {
+//             phoneNumber: "972584819414"
+//         }
+//     }
+// })

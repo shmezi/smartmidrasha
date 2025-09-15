@@ -1,5 +1,5 @@
 import SoliderSelector from "@/app/(pages)/commander/homes/SoliderSelector";
-import {User} from "@/struct/schemas/data/User";
+// import {User} from "@/struct/schemas/data/User";
 import {Box, Button} from "@mui/material";
 import {simplifyJson} from "@/app/(pages)/admin/utils";
 import Form from "next/form";
@@ -14,7 +14,7 @@ const CommanderSoliderPage = async () => {
 
                 <input type={"hidden"} name={"commanderId"} value={"0000001"}/>
 
-                <SoliderSelector soldiers={simplifyJson(await User.find({commanderId: COMMANDER}))}/>
+                {/*<SoliderSelector soldiers={simplifyJson(await User.find({commanderId: COMMANDER}))}/>*/}
                 <Button sx={{width: "3rem"}} type={"submit"} variant={"outlined"}>הגש</Button>
             </Box>
         </Form>
