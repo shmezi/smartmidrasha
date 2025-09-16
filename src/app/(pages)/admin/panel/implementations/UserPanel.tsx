@@ -31,7 +31,7 @@ export class UserPanel extends BasePanel {
                 <MenuItem value={Gender.MALE}>זכר</MenuItem>
             </Select>
         </FormControl>
-        <RegexField formField={"phone"} name={"מספר טלפון"} limit={9} regex={"^[0-9]{9}$"} required={true}></RegexField>
+        <RegexField formField={"phone"} name={"מספר טלפון"} limit={12} regex={"^972[0-9]{9}$"} required={true}></RegexField>
 
 
         <FormControl>

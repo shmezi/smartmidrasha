@@ -18,8 +18,7 @@ export const ObjectUpdatePanel = async (
 
 
     const selected = searchParams.selected
-    console.log("HERE LOOK HERE")
-    console.log(selected)
+
     const selectedObject = selectables.find((o) => {
         return o.id == selected
     })

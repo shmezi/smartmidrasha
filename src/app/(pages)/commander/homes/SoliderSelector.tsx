@@ -39,7 +39,7 @@ const SoliderSelector = (props: { soldiers: MidrashaUser[] }) => {
                             justifyContent: "center",
                             alignContent: "center"
                         }}
-                        selected={selected.includes(solider.id)}>{solider.name} | {solider.id}
+                        selected={selected.includes(solider.id)}>{solider.name}
                     </ListItemButton>
                 </ListItem>
             ))

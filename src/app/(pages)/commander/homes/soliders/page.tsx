@@ -14,19 +14,29 @@ const CommanderSoliderPage = async () => {
     })
 
 
-    const userQueryResult = await auth.api.listUsers({
-        query: {
-            filterField: "commanderId",
-            filterValue: session?.user?.id
-        }
+    const users = (await auth.api.listUsers(
+        {
+            query: {
+                filterField: "commanderId",
+                filterValue: session?.user?.id,
+                limit: 10,
+                offset: 0
+                ,
+            },
+            headers: await headers()
+        },
+    )).users.map((user) => {
+        return user as MidrashaUser
     })
+
+
     // const users = userQueryResult.users as MidrashaUser[] | never[]
 
     return <Box fontSize={"xx-large"}>
         <Form action={newExpectedLogAction}>
             <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
 
-                {/*<SoliderSelector soldiers={simplifyJson(users)}/>*/}
+                <SoliderSelector soldiers={simplifyJson(users)}/>
                 <Button sx={{width: "3rem"}} type={"submit"} variant={"outlined"}>הגש</Button>
             </Box>
         </Form>

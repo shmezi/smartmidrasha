@@ -1,58 +1,69 @@
-'use server'
-import {AccountCircle} from "@mui/icons-material";
-import {Box, Button, Card, FormControl, InputAdornment, Link, TextField, Typography} from "@mui/material";
+'use client'
+import {Box, Button, Card, FormControl, InputAdornment, Typography} from "@mui/material";
 import Form from "next/form";
-import {sendAuthRequest} from "@/app/actions/authActions";
+import {sendAuthRequest, verifyAuthRequest} from "@/app/actions/authActions";
+import {useState} from "react";
+import OTPField from "@/app/(pages)/login/otp/OTPField";
+import PhoneField from "@/app/(pages)/login/PhoneField";
+import {Phone} from "@mui/icons-material";
+import {TextBox} from "@/components/TextBox";
 
-const SignIn = async () => {
-    return (<>
+const SignIn = () => {
+    const [number, setNumber] = useState("")
+    const [verify, setVerify] = useState(false)
+    return (
+        <Box display={"flex"} bgcolor={"whitesmoke"} height={"100%"} alignItems={"center"} justifyContent={"center"}>
+            <Form id={"otp-form"} action={verify ? verifyAuthRequest : sendAuthRequest} onSubmit={() => {
+                setVerify(true)
+            }}>
 
-            <Form action={sendAuthRequest}>
-
-                <Box margin={"2rem"} justifyItems={"center"}>
+                <Box justifyItems={"center"} alignContent={"center"} alignItems={"center"}>
 
                     <Card sx={{
-                        width: "90%",
                         display: "flex",
                         flexDirection: "column",
                         alignContent: "center",
-                        justifyContent: "center",
-                        alignItems: "center"
-
+                        alignItems: "center",
+                        padding: "1rem 2rem 3rem 2rem"
                     }}>
 
-                        <Box flexDirection={"column"} padding={"1rem"}>
+
+                        <Box display={"flex"} width={"100%"} flexDirection={"column"} alignItems={"center"}
+                        >
 
                             <Typography fontSize={"xx-large"} textAlign={"center"}>כניסה</Typography>
-
+                            {verify ? <input type={"hidden"} name={"phone"} value={number}/> : <></>}
                             <FormControl>
 
-                                <TextField
-                                    name={"phone"}
 
-                                    sx={{
-                                        padding: "0",
-                                        width: "90%"
-                                    }} fullWidth={false} type={"number"} slotProps={{
-                                    input: {
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <AccountCircle/>
-                                            </InputAdornment>
-                                        ),
-                                    }
-                                }}>
+                                {verify ?
 
-                                </TextField>
+                                    <OTPField fields={6}/> : <TextBox name={"phone"}
+                                                                      value={number}
+                                                                      onChange={(e)=>{
+                                        setNumber(e.target.value)
+                                    }} slotProps={{
+                                        input: {
+                                            endAdornment: (
+                                                <InputAdornment
+                                                    position="end"
+
+                                                >
+                                                    <Phone/>
+                                                </InputAdornment>)
+                                        }
+                                    }}>
+
+                                    </TextBox>
+                                }
                             </FormControl>
-                            <Button type={"submit"} variant={"outlined"}>שלח לי קוד</Button>
-                            <Link href={"/api/auth/signin"}>הבא</Link>
+                            <Button sx={{margin: "1rem"}} type={"submit"} variant={"outlined"}>שלח לי קוד</Button>
                         </Box>
 
                     </Card>
 
                 </Box>
-            </Form></>
+            </Form></Box>
     )
 }
 export default SignIn
