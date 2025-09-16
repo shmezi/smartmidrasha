@@ -1,7 +1,7 @@
 'use client'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import {Box, Drawer, List, Typography} from "@mui/material";
+import {Box, Card, Drawer, List, Typography} from "@mui/material";
 import {useRouter} from "next/navigation";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import NavBarItem from "@/components/nav/NavBarItem";
@@ -11,12 +11,27 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import {authClient} from "@/lib/client";
 import {createAuthClient} from "better-auth/react";
 import {timeOfDay} from "@/utils/utils";
+import {socket} from "@/socket";
+import CircleIcon from "@mui/icons-material/Circle";
 
 const {useSession} = createAuthClient()
 
 const NavBarButton = () => {
     const [open, setOpen] = useState(false)
+    const [connected,setConnected] = useState(false)
     const session = useSession()
+    useEffect(()=>{
+        socket.on('connect', () => {
+            console.log('Connected to Socket.IO server');
+            setConnected(true)
+        });
+        setConnected(socket.connected)
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from Socket.IO server');
+            setConnected(false)
+        });
+    })
 
 
     return <>
@@ -44,6 +59,18 @@ const NavBarButton = () => {
 
 
                 </List>
+                <Card>
+                    <Box display={"flex"} flexDirection={"row"} alignItems={"center"} >
+                        <CircleIcon
+                            sx={{
+                                marginLeft: "0.4rem",
+                                marginRight: "0.4rem",
+                                fontSize: "x-small",
+                                color: connected ? "green" : "red"
+                            }}/>
+                        <Typography sx={{textAlign: "right"}}>{connected ? "מחובר למערכת" : "מנותק"}</Typography>
+                    </Box>
+                </Card>
             </Box>
         </Drawer>
 

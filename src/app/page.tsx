@@ -1,19 +1,25 @@
-import {headers} from "next/headers";
-import {auth} from "../../auth";
+'use client'
+import {useEffect, useState} from 'react';
+import {socket} from "@/socket";
 
-const Home = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers()
-    })
-    if (!session) {
-        return <div>Not authenticated</div>
-    }
+
+export default function Chat() {
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+
+    }, []);
+
+    const sendMessage = () => {
+        if (socket && message.trim()) {
+            socket.emit('message', message);
+            setMessage('');
+        }
+    };
+
     return (
         <div>
-            <h1>Welcome {session.user.name}</h1>
+
         </div>
-    )
-
+    );
 }
-
-export default Home

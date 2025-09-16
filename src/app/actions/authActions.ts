@@ -12,6 +12,7 @@ export const sendAuthRequest = async (formData: FormData) => {
     });
 }
 export const verifyAuthRequest = async (formData: FormData) => {
+    console.log(`${formData.get("phone") as string} - ${formData.get("code") as string}`)
     await auth.api.verifyPhoneNumber({
         body: {
             phoneNumber: formData.get("phone") as string, // required
