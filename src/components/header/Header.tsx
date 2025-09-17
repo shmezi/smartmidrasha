@@ -17,10 +17,10 @@ const Header = () => {
 
 
         <NavBarButton/>
-        <Box alignItems={"center"}  width={"100%"} justifyContent={"center"} alignContent={"center"}
+        <Box alignItems={"center"} width={"100%"} justifyContent={"center"} alignContent={"center"}
              display={"flex"}
              flexDirection={"row"}>
-            <SynagogueIcon sx={{marginLeft: "0.3rem", fontSize:"xx-large", color: "primary.contrastText"}}/>
+            <SynagogueIcon sx={{marginLeft: "0.3rem", fontSize: "xx-large", color: "primary.contrastText"}}/>
             <Typography color={"white"} fontSize={"xx-large"}>המדרשה החכמה</Typography>
         </Box>
     </Box>

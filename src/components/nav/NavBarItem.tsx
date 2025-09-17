@@ -1,5 +1,4 @@
 import {ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import React from "react";
 import {useRouter} from "next/navigation";
 

@@ -34,7 +34,7 @@ export default function RootLayout(props: {
               style={{width: "100vw", height: "100vh"}}>
 
 
-        <Stack spacing={"2"} height={"100vh"} width={"100vw"} >
+        <Stack spacing={"2"} height={"100vh"} width={"100vw"}>
             <Header/>
             <Box height={"100%"} width={"100%"}>
                 {props.children}

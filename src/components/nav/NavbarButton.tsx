@@ -2,13 +2,11 @@
 import React, {useEffect, useState} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Box, Card, Drawer, List, Typography} from "@mui/material";
-import {useRouter} from "next/navigation";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import NavBarItem from "@/components/nav/NavBarItem";
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import {House} from "@mui/icons-material";
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import {authClient} from "@/lib/client";
 import {createAuthClient} from "better-auth/react";
 import {timeOfDay} from "@/utils/utils";
 import {socket} from "@/socket";
@@ -18,9 +16,9 @@ const {useSession} = createAuthClient()
 
 const NavBarButton = () => {
     const [open, setOpen] = useState(false)
-    const [connected,setConnected] = useState(false)
+    const [connected, setConnected] = useState(false)
     const session = useSession()
-    useEffect(()=>{
+    useEffect(() => {
         socket.on('connect', () => {
             console.log('Connected to Socket.IO server');
             setConnected(true)
@@ -47,20 +45,20 @@ const NavBarButton = () => {
                     <NavBarItem text={"גישת מנהלן"} url={"/admin/users"}>
                         <AdminPanelSettingsIcon sx={{color: "red"}}/>
                     </NavBarItem>
-                    <NavBarItem text={"מבט כללי"} url={"/commander/homes/dash"}>
+                    <NavBarItem text={"מבט כללי"} url={"/attendance/homes/dash"}>
                         <DashboardIcon sx={{color: "blueviolet"}}/>
                     </NavBarItem>
-                    <NavBarItem text={"מעבר דירות"} url={"/commander/homes/review"}>
+                    <NavBarItem text={"מעבר דירות"} url={"/attendance/homes/attendanceCheck"}>
                         <House sx={{color: "purple"}}/>
                     </NavBarItem>
-                    <NavBarItem text={"החיילים שלי"} url={"/commander/homes/soliders"}>
+                    <NavBarItem text={"החיילים שלי"} url={"/attendance/homes/mySoldiers"}>
                         <MilitaryTechIcon sx={{color: "orange"}}/>
                     </NavBarItem>
 
 
                 </List>
                 <Card>
-                    <Box display={"flex"} flexDirection={"row"} alignItems={"center"} >
+                    <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
                         <CircleIcon
                             sx={{
                                 marginLeft: "0.4rem",

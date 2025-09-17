@@ -1,4 +1,4 @@
-import {Home, IHome} from "@/struct/schemas/data/Home"
+import {Home, IHome} from "@/struct/schemas/Home"
 import {FormControl, MenuItem, Select} from "@mui/material";
 import React from "react";
 

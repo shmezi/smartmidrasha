@@ -1,25 +1,4 @@
-'use client'
-import {useEffect, useState} from 'react';
-import {socket} from "@/socket";
+const Home = () => {
 
-
-export default function Chat() {
-    const [message, setMessage] = useState('');
-
-    useEffect(() => {
-
-    }, []);
-
-    const sendMessage = () => {
-        if (socket && message.trim()) {
-            socket.emit('message', message);
-            setMessage('');
-        }
-    };
-
-    return (
-        <div>
-
-        </div>
-    );
 }
+export default Home
