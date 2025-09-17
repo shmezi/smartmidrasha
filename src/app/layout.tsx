@@ -29,14 +29,14 @@ export default function RootLayout(props: {
 }) {
 
     return (
-        <html lang="en" dir={"rtl"} style={{width: "100%", height: "100%"}}>
+        <html lang="en" dir={"rtl"} style={{width: "100vw", height: "100vh"}}>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-              style={{width: "100%", height: "100%"}}>
+              style={{width: "100vw", height: "100vh"}}>
 
 
-        <Stack spacing={"2"}>
+        <Stack spacing={"2"} height={"100vh"} width={"100vw"}>
             <Header/>
-            <Box>
+            <Box height={"100%"} width={"100%"}>
                 {props.children}
             </Box>
         </Stack>

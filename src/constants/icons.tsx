@@ -14,5 +14,5 @@ export const HOME_COMMANDER_ICON = <SportsMartialArts sx={{color: "orange"}}/>
 export const SOLIDER_ICON = <Person/>
 
 
-export const MALE_ICON = <ManIcon sx={{color: "purple"}} />
+export const MALE_ICON = <ManIcon sx={{color: "purple"}}/>
 export const FEMALE_ICON = <WomanIcon sx={{color: "lightblue"}}/>

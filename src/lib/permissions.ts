@@ -17,6 +17,7 @@ export const adminRole = accessControl.newRole({
 
 export const commanderRole = accessControl.newRole({
     houseAttendance: ["overview", "commander"],
+    user: ["list"]
 });
 export const dutyOfficerRole = accessControl.newRole({
     houseAttendance: ["overview", "duty-officer"]

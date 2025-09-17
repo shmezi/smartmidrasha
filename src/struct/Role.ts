@@ -3,10 +3,10 @@ import React from "react";
 
 
 export class Role {
-    public static readonly DEFAULT = new Role("default", SOLIDER_ICON, 0);
-    public static readonly DUTY_OFFICER = new Role("dutyofficerrole", HOME_COMMANDER_ICON, 1);
-    public static readonly COMMANDER = new Role("commanderrole", COMMANDER_ICON, 2);
-    public static readonly ADMIN = new Role("adminrole", ADMIN_ICON, 3);
+    public static readonly DEFAULT = new Role("user", SOLIDER_ICON, 0);
+    public static readonly DUTY_OFFICER = new Role("dutyOfficerRole", HOME_COMMANDER_ICON, 1);
+    public static readonly COMMANDER = new Role("commanderRole", COMMANDER_ICON, 2);
+    public static readonly ADMIN = new Role("adminRole", ADMIN_ICON, 3);
 
     public static readonly values = [Role.DEFAULT, Role.DUTY_OFFICER, Role.COMMANDER, Role.ADMIN]
 
@@ -16,7 +16,7 @@ export class Role {
     public static readonly fromString = (value: string) => {
         return Role.values.find((job) => {
             console.log(`Found ${job.id}`)
-            return job.id == value.toLowerCase()
+            return job.id.toLowerCase() == value.toLowerCase()
         })
     }
 

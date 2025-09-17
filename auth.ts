@@ -12,6 +12,7 @@ export const auth = betterAuth({
     database: mongodbAdapter(db),
     secret: process.env.AUTH_SECRET ?? "kSKbHkB0DJMTZkXZzAmvHFxXFCQpnrTUqzsFr8nWzw8=",
     encryptOAuthTokens: true,
+
     user: {
         additionalFields: {
             homeId: {
@@ -26,16 +27,17 @@ export const auth = betterAuth({
     plugins: [
         phoneNumber({
             sendOTP: async ({phoneNumber, code}, request) => {
-                await fetch("http://localhost:4000/auth", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json" // Indicate the body content type
-                    },
-                    body: JSON.stringify({
-                        phone: phoneNumber,
-                        code: code
-                    })
-                })
+                //FULLY WORKING / removed for testing purposes without spamming random people.
+                // await fetch("http://localhost:4000/auth", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json" // Indicate the body content type
+                //     },
+                //     body: JSON.stringify({
+                //         phone: phoneNumber,
+                //         code: `קוד הכניסה החד-פעמי למדרשה החכמה הוא: ${code.toString()}`
+                //     })
+                // })
             },
             signUpOnVerification: {
                 getTempEmail: (phoneNumber) => {
